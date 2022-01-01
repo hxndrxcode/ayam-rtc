@@ -7,7 +7,8 @@ const firebaseConfig = {
     projectId: "fir-ayam-rtc",
     storageBucket: "fir-ayam-rtc.appspot.com",
     messagingSenderId: "810738376246",
-    appId: "1:810738376246:web:ad12db3b264298515f0297"
+    appId: "1:810738376246:web:ad12db3b264298515f0297",
+    test: 1
 };
 
 if (!firebase.apps.length) {
