@@ -1,43 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebRTC Demo</title>
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body>
-    <h2>1. Start your Webcam</h2>
-    <div class="videos">
-      <span>
-        <h3>Local Stream</h3>
-        <video id="webcamVideo" autoplay playsinline></video>
-      </span>
-      <span>
-        <h3>Remote Stream</h3>
-        <video id="remoteVideo" autoplay playsinline></video>
-      </span>
-
-
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebRTC Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="root" style="max-width: 1200px;" class="mx-auto">
+    <template v-if="showPopUp">
+      <div class="modal show" style="display: block; padding-right: 12px;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body text-center">
+              <p>
+                Please allow Camera and Microphone
+              </p>
+              <button @click="closePopUp()" type="button" class="btn btn-primary">Okay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-backdrop fade show"></div>
+    </template>
+    <div class="container pt-4">
+      <div v-show="!sessionPage" class="row">
+        <div class="offset-md-3 col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Create or Join Video Call</h5>
+            </div>
+            <div class="card-body">
+              <div class="py-5 text-center">
+                <button @click="createVC()" class="btn btn-primary">Create Video Call</button>
+                <p class="my-3">Or</p>
+                <div class="btn-group">
+                  <input type="text" v-model="joinVideoCallID" class="form-control border-primary" placeholder="Video Call ID">
+                  <button @click="joinVC()" class="btn btn-outline-primary">Join</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-show="sessionPage" class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            <button @click="closeVC()" class="btn btn-danger float-right">End Call</button>
+            Video Call Session
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <video id="webcamVideo" autoplay playsinline></video>
+            </div>
+            <div class="col-md-6 mb-3">
+              <video id="remoteVideo" autoplay playsinline></video>
+            </div>
+          </div>    
+        </div>
+        <div class="card-footer">
+          <div class="input-group col-md-6 mx-auto">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Video Call ID</span>
+            </div>
+            <input v-model="videoCallID" type="text" class="form-control" readonly>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <button id="webcamButton">Start webcam</button>
-    <h2>2. Create a new Call</h2>
-    <button id="callButton" disabled>Create Call (offer)</button>
-
-    <h2>3. Join a Call</h2>
-    <p>Answer the call from a different browser window or device</p>
-    
-    <input id="callInput" />
-    <button id="answerButton" disabled>Answer</button>
-
-    <h2>4. Hangup</h2>
-
-    <button id="hangupButton" disabled>Hangup</button>
-
-    <!-- <script type="module" src="dist/bundle.js"></script> -->
-    <script type="module" src="/main.js"></script>
-
-  </body>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script type="module" src="/main.js"></script>
+</body>
 </html>

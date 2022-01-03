@@ -10,7 +10,12 @@ Install node modules dependencies
 npm i
 ```
 
-Build js file:
+Run in development:
+```
+npm run dev
+```
+
+Build static file:
 ```
 npm run build
 ```
@@ -19,7 +24,9 @@ Serve locally with serve
 ```
 npm i -g serve
 
+cd dist
+
 serve
 ```
 
-Or Upload directly to web hosting
+Or upload dist directory to static web hosting
